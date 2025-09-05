@@ -117,16 +117,35 @@
         <hr class="border-gray-700 my-8">
         <h2>The Advanced English Explanation</h2>
         <p>For a deeper understanding, "come" and "go" are known as **deictic verbs**. This means their meaning depends entirely on the speaker's **point of reference**.</p>
+        
         <div class="example-box">
-            <h3 class="text-white">The Directional Vector</h3>
-            <p>Think of it in terms of a vector. The vector's starting point is the subject of the verb, and its destination is the place. The key is to know where the **speaker** is in relation to this vector.</p>
-            <p><strong>Use COME</strong> when the vector is pointing **towards the speaker's location** or the place where the speaker is inviting the listener to be.</p>
-            <p><strong>Use GO</strong> when the vector is pointing **away from the speaker's location** or towards a third location where neither the speaker nor the listener is currently present.</p>
+            <h3>Step 1: Understand the Core Concept</h3>
+            <p>The verbs "come" and "go" are **deictic verbs**. This means they are defined by the speaker's location and direction. Their meaning changes depending on where you, the speaker, are.</p>
         </div>
+        
         <div class="example-box mt-4">
-            <p><strong>Correct Example:</strong> "I'm at the office. Can you <span class="correct-answer">come</span> here?"</p>
-            <p><strong>Correct Example:</strong> "I'm at the office, but I'll <span class="correct-answer">go</span> home in an hour."</p>
-            <p>Even though "home" is a common place, the speaker is at the office, so the movement is away from them. The verb "go" correctly reflects this directional vector.</p>
+            <h3>Step 2: Visualize a "Directional Vector"</h3>
+            <p>Think of movement as a vector, a line that has both a starting point and a direction. The key to choosing the right verb is to know where the **speaker** is in relation to this vector.</p>
+        </div>
+        
+        <div class="example-box mt-4">
+            <h3>Step 3: When to use 'COME'</h3>
+            <p>Use **COME** when the vector is pointing **towards the speaker's location** or a place where the speaker is inviting the listener to be.</p>
+            <p><strong>Example:</strong> "I'm at the office. Can you <span class="correct-answer">come</span> here?"</p>
+            <p>In this case, the movement is directed toward the office, which is where the speaker is.</p>
+        </div>
+        
+        <div class="example-box mt-4">
+            <h3>Step 4: When to use 'GO'</h3>
+            <p>Use **GO** when the vector is pointing **away from the speaker's location**. This is for a movement towards a third location where neither the speaker nor the listener is currently present.</p>
+            <p><strong>Example:</strong> "I'm at the office, but I'll <span class="correct-answer">go</span> home in an hour."</p>
+            <p>The speaker is at the office, and the movement is away from them, towards home. The verb "go" correctly reflects this directional vector.</p>
+        </div>
+        
+        <div class="example-box mt-4">
+            <h3>Step 5: Practice and Remember</h3>
+            <p>The choice between "come" and "go" always depends on the speaker's position. The direction of the movement is the key.</p>
+            <p>A simple phrase to remember is: **"Come in, go out"**. This helps you associate "come" with movement towards a point of reference (in) and "go" with movement away (out).</p>
         </div>
 
         <hr class="border-gray-700 my-8">
@@ -394,10 +413,11 @@
         }
 
         function handleQuizClick(event) {
-            const selectedOption = event.target;
+            const selectedOption = event.currentTarget;
             const selectedAnswer = selectedOption.dataset.answer;
             const correctAnswer = quizQuestions[currentQuestionIndex].answer;
-
+            
+            // Disable all buttons and style them based on correctness
             document.querySelectorAll('.quiz-option').forEach(button => {
                 button.disabled = true;
                 if (button.dataset.answer === correctAnswer) {
@@ -407,13 +427,20 @@
                 }
             });
 
+            // Update feedback message
             if (selectedAnswer === correctAnswer) {
-                quizFeedback.innerHTML = `<p class="correct">Correto! Boa! ✅</p>`;
+                quizFeedback.textContent = 'Correto! Boa! ✅';
+                quizFeedback.classList.remove('incorrect');
+                quizFeedback.classList.add('correct');
                 saveProgress(`quiz_question_${currentQuestionIndex + 1}_correct`);
             } else {
-                quizFeedback.innerHTML = `<p class="incorrect">Incorreto. A resposta correta está destacada em verde. ❌</p>`;
+                quizFeedback.textContent = 'Incorreto. A resposta correta está destacada em verde. ❌';
+                quizFeedback.classList.remove('correct');
+                quizFeedback.classList.add('incorrect');
             }
-            
+            quizFeedback.classList.remove('hidden');
+
+            // Enable next button
             nextQuizBtn.disabled = false;
             nextQuizBtn.classList.remove('opacity-50');
         }
